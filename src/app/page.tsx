@@ -21,7 +21,7 @@ function slugify(s: string) {
     .replace(/[^a-z0-9]/g, "");
 }
 
-// ===== CSV parser =====
+// ===== CSV parser: xử lý dấu phẩy trong "..." =====
 function parseCsvLine(line: string): string[] {
   const out: string[] = [];
   let cur = "";
@@ -154,34 +154,40 @@ export default function Page() {
   ];
 
   return (
-    <div className="min-h-screen text-white" style={{ background: bg, color: "white" }}>
+    <div className="min-h-screen text-white" style={{ background: bg }}>
       {/* ===== HEADER ===== */}
       <header className="sticky top-0 z-[100] border-b border-white/10 backdrop-blur bg-[#052c24]/95">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 flex items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-4 min-w-0 flex-wrap">
-            <h1 className="font-black text-4xl md:text-5xl uppercase tracking-widest truncate" style={{ color: gold }}>
+            <h1 className="font-black text-2xl md:text-3xl truncate" style={{ color: gold }}>
               {data.name}
             </h1>
-            <span className="text-3xl md:text-4xl font-black tracking-wider" style={{ color: gold }}>
+            <span className="hidden md:inline text-sm md:text-base font-bold text-white/90">
               Document: {data.document}
             </span>
           </div>
+
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-black uppercase tracking-widest">
+          <nav className="hidden lg:flex items-center gap-12 text-sm font-black uppercase tracking-widest">
             {nav.map((x) => (
-              <a key={x.h} href={x.h} className="text-white/80 hover:text-white transition">
+              <a
+                key={x.h}
+                href={x.h}
+                className="px-3 py-2 rounded-lg hover:bg-white/10 transition text-white font-bold text-sm"
+              >
                 {x.t}
               </a>
             ))}
             <a
               href="#dangky"
-              className="px-5 py-2 rounded-xl shadow-xl hover:scale-[1.03] transition font-black"
+              className="ml-8 px-6 py-2 rounded-xl shadow-xl hover:scale-[1.05] transition font-black"
               style={{ background: gold, color: bg }}
             >
               ĐĂNG KÝ
             </a>
           </nav>
-          {/* Mobile */}
+
+          {/* Mobile toggle */}
           <button
             className="lg:hidden p-2 rounded-xl border border-white/10 hover:bg-white/5 transition"
             onClick={() => setMobile((v) => !v)}
@@ -189,18 +195,26 @@ export default function Page() {
             {mobile ? <X /> : <Menu />}
           </button>
         </div>
+
         {mobile && (
           <div className="lg:hidden border-t border-white/10 bg-[#052c24]">
-            <div className="max-w-7xl mx-auto px-4 py-3 grid grid-cols-2 gap-4">
+            <div className="max-w-7xl mx-auto px-4 py-3 grid grid-cols-1 gap-3">
               {nav.map((x) => (
                 <a
                   key={x.h}
                   href={x.h}
-                  className="px-3 py-2 rounded-xl border border-white/10 text-[11px] font-black uppercase tracking-widest text-white/85 hover:bg-white/5 transition"
+                  className="px-3 py-2 rounded-xl border border-white/10 text-[12px] font-black uppercase tracking-widest text-white/90 hover:bg-white/10 transition block text-center"
                 >
                   {x.t}
                 </a>
               ))}
+              <a
+                href="#dangky"
+                className="mt-2 px-6 py-3 rounded-xl shadow-xl hover:scale-[1.05] transition font-black text-white bg-gold block text-center"
+                style={{ background: gold, color: bg }}
+              >
+                ĐĂNG KÝ
+              </a>
             </div>
           </div>
         )}
@@ -211,44 +225,41 @@ export default function Page() {
         <div className="relative rounded-[32px] overflow-hidden border border-white/10 shadow-2xl">
           <img src={heroImage} alt="hero" className="w-full h-[520px] object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#052c24] via-[#052c24]/10 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 p-8 md:p-12">
-            <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl border border-white/10 bg-[#031d18]/55">
-                <CheckCircle2 size={18} style={{ color: gold }} />
-                <span className="text-[11px] font-black uppercase tracking-[4px] text-white/85">
-                  Xác minh doanh nghiệp
-                </span>
-              </div>
-              <h1 className="mt-5 text-5xl md:text-7xl font-black uppercase leading-[1.15] tracking-tight">
-                STAR HILLS <span style={{ color: gold }}>LỘC AN</span>
-              </h1>
-              <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-white/85 leading-snug">
-                Khu nhà vườn sinh thái
-              </h2>
-              <p className="mt-4 text-white/90 max-w-3xl leading-relaxed text-base md:text-lg">
-                Sự xuất hiện của Star Hills tại Lộc An sẽ tiên phong cho xu hướng Second Home,
-                kiến tạo trở thành khu nhà vườn sinh thái lí tưởng, cho phép chủ nhân tận hưởng
-                không khí xanh, bền vững an cư và đầu tư cho tương lai.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#dangky"
-                  className="px-8 py-4 rounded-2xl font-black uppercase tracking-widest shadow-2xl hover:scale-[1.02] transition text-center"
-                  style={{ background: gold, color: bg }}
-                >
-                  NHẬN BÁO GIÁ
-                </a>
-                <a
-                  href="#lienhe"
-                  className="px-8 py-4 rounded-2xl font-black uppercase tracking-widest border border-white/15 hover:bg-white/5 transition text-center"
-                >
-                  LIÊN HỆ
-                </a>
-              </div>
+          <div className="absolute inset-x-0 bottom-0 p-6 md:p-12 max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl border border-white/10 bg-[#031d18]/60">
+              <CheckCircle2 size={18} style={{ color: gold }} />
+              <span className="text-[11px] font-black uppercase tracking-[4px] text-white/85">
+                Xác minh doanh nghiệp
+              </span>
+            </div>
+            <h1 className="mt-5 text-4xl md:text-6xl font-black uppercase leading-tight">
+              {data.name.split(" ")[0]} <span style={{ color: gold }}>{data.name.split(" ")[1]}</span>
+            </h1>
+            <h2 className="mt-2 text-xl md:text-2xl font-extrabold text-white/85 leading-snug">
+              Khu nhà vườn sinh thái
+            </h2>
+            <p className="mt-4 text-white/90 max-w-3xl leading-relaxed text-base md:text-lg">
+              Sự xuất hiện của {data.name} tại {data.address} sẽ tiên phong cho xu hướng Second Home, kiến tạo khu nhà vườn sinh thái lí tưởng, cho phép chủ nhân tận hưởng không khí xanh, bền vững an cư và đầu tư cho tương lai.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row justify-start gap-6 md:gap-10">
+              <a
+                href="#dangky"
+                className="px-8 py-3 rounded-2xl font-black uppercase tracking-widest shadow-2xl hover:scale-[1.03] transition text-center flex-1 sm:flex-none"
+                style={{ background: gold, color: bg }}
+              >
+                NHẬN BÁO GIÁ
+              </a>
+              <a
+                href="#lienhe"
+                className="px-8 py-3 rounded-2xl font-black uppercase tracking-widest border border-white/15 hover:bg-white/10 transition text-center flex-1 sm:flex-none"
+              >
+                LIÊN HỆ
+              </a>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* ===== Các section khác giữ nguyên, chỉ chỉnh text-white/90 nếu cần ===== */}
 
@@ -278,3 +289,5 @@ export default function Page() {
     </div>
   );
 }
+
+
