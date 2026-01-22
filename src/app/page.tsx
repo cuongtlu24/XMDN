@@ -279,4 +279,42 @@ const ContactForm = ({ data }: { data: BizData }) => {
           <div id="lienhe" className="rounded-[28px] border border-white/10 bg-white/5 p-7">
             <div className="text-[12px] font-black uppercase tracking-widest" style={{ color: gold }}>THÔNG TIN LIÊN HỆ</div>
             <div className="mt-5 space-y-4">
-              <div className="flex items-center gap-3"><div className="p-2 rounded-full" style
+              <div className="flex items-center gap-3"><div className="p-2 rounded-full" style={{ background: gold }}><Phone size={14} /></div><span>{data.phone}</span></div>
+              <div className="flex items-center gap-3"><div className="p-2 rounded-full" style={{ background: gold }}><MapPin size={14} /></div><span>{data.address}</span></div>
+            </div>
+          </div>
+        </div>
+
+        {toast && (
+          <div className="fixed bottom-8 right-8 px-5 py-3 rounded-xl shadow-xl bg-green-600 text-white font-bold">{toast}</div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+// ===== Footer =====
+const Footer = () => (
+  <footer className="max-w-7xl mx-auto px-4 md:px-6 py-8 text-white/70 text-xs text-center border-t border-white/10">
+    © {new Date().getFullYear()} Star Hills Lộc An. All rights reserved.
+  </footer>
+);
+
+// ===== Main Page =====
+export default function Page() {
+  const data = useBizData("https://docs.google.com/spreadsheets/d/1YP5Z2k9hRx99V2B0iXxWbq5yAO0vUj13K3ddqEGKy4s/export?format=csv");
+
+  if (!data) return <div className="min-h-screen flex items-center justify-center text-white font-black">Không tìm thấy dữ liệu cho subdomain này</div>;
+
+  return (
+    <div className="bg-[#052c24] text-white font-sans">
+      <Header data={data} />
+      <Hero data={data} />
+      <Overview />
+      <Amenities />
+      <Legal />
+      <ContactForm data={data} />
+      <Footer />
+    </div>
+  );
+}
