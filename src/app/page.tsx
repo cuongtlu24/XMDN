@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Phone, MapPin, Building2, Menu, X, CheckCircle2 } from "lucide-react";
+import { Phone, MapPin, Menu, X, CheckCircle2 } from "lucide-react";
 
 type BizData = {
   name: string;
@@ -99,11 +99,23 @@ export default function Page() {
             image: (match[5] || "").trim(),
           });
         } else {
-          setData(null);
+          setData({
+            name: "Star Hills Lộc An",
+            address: "Lộc An, Bảo Lâm, Lâm Đồng",
+            document: "Default Document",
+            phone: "0123456789",
+            image: "",
+          });
         }
       } catch (e) {
         console.error(e);
-        setData(null);
+        setData({
+          name: "Star Hills Lộc An",
+          address: "Lộc An, Bảo Lâm, Lâm Đồng",
+          document: "Default Document",
+          phone: "0123456789",
+          image: "",
+        });
       }
     };
     run();
@@ -129,13 +141,7 @@ export default function Page() {
   const gold = "#c4a52e";
 
   if (!data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#052c24] text-white italic px-6 text-center">
-        ❌ Không tìm thấy dữ liệu theo subdomain
-        <br />
-        👉 Kiểm tra cột A trong Google Sheet
-      </div>
-    );
+    return null;
   }
 
   const heroImage =
@@ -144,6 +150,7 @@ export default function Page() {
   const nav = [
     { t: "TRANG CHỦ", h: "#home" },
     { t: "TỔNG QUAN", h: "#tongquan" },
+    { t: "VỊ TRÍ", h: "#vitri" },
     { t: "TIỆN ÍCH", h: "#tienich" },
     { t: "PHÁP LÝ", h: "#phaply" },
     { t: "ĐĂNG KÝ", h: "#dangky" },
@@ -155,29 +162,13 @@ export default function Page() {
       {/* ===== HEADER ===== */}
       <header className="sticky top-0 z-[100] border-b border-white/10 backdrop-blur bg-[#052c24]/95">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-          <div className="flex items-start gap-3 min-w-0">
-            <div
-              className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
-              style={{ background: gold, color: bg }}
-            >
-              <Building2 />
-            </div>
-            <div className="min-w-0">
-              <div className="font-black text-base md:text-lg uppercase tracking-wide truncate">
-                {data.name}
-              </div>
-              <div className="flex items-center gap-2 mt-1">
-                <span
-                  className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase"
-                  style={{ background: gold, color: bg }}
-                >
-                  Document
-                </span>
-                <span className="text-white/80 text-xs font-semibold tracking-wider truncate">
-                  {data.document}
-                </span>
-              </div>
-            </div>
+          <div className="flex items-center gap-6 min-w-0">
+            <h1 className="font-black text-2xl md:text-3xl uppercase tracking-wide truncate" style={{ color: gold }}>
+              {data.name}
+            </h1>
+            <span className="text-lg font-bold tracking-wider" style={{ color: gold }}>
+              Document: {data.document}
+            </span>
           </div>
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-6 text-[11px] font-black uppercase tracking-widest">
@@ -231,13 +222,13 @@ export default function Page() {
                   Xác minh doanh nghiệp
                 </span>
               </div>
-              <h1 className="mt-5 text-4xl md:text-6xl font-black uppercase leading-[1.15] tracking-tight">
+              <h1 className="mt-5 text-5xl md:text-7xl font-black uppercase leading-[1.15] tracking-tight">
                 STAR HILLS <span style={{ color: gold }}>LỘC AN</span>
               </h1>
-              <h2 className="mt-2 text-xl md:text-2xl font-extrabold text-white/85 leading-snug">
+              <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-white/85 leading-snug">
                 Khu nhà vườn sinh thái
               </h2>
-              <p className="mt-4 text-white/75 max-w-3xl leading-relaxed text-sm md:text-base">
+              <p className="mt-4 text-white/75 max-w-3xl leading-relaxed text-base md:text-lg">
                 Sự xuất hiện của Star Hills tại Lộc An sẽ tiên phong cho xu hướng Second Home,
                 kiến tạo trở thành khu nhà vườn sinh thái lí tưởng, cho phép chủ nhân tận hưởng
                 không khí xanh, bền vững an cư và đầu tư cho tương lai.
@@ -263,7 +254,7 @@ export default function Page() {
       </section>
       {/* ===== TỔNG QUAN ===== */}
       <section id="tongquan" className="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-20">
-        <h3 className="text-2xl md:text-3xl font-black uppercase tracking-[4px]">
+        <h3 className="text-3xl md:text-4xl font-black uppercase tracking-[4px]">
           Thông tin <span style={{ color: gold }}>tổng quan</span>
         </h3>
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -271,7 +262,7 @@ export default function Page() {
             <div className="font-black uppercase tracking-widest text-sm" style={{ color: gold }}>
               Nội dung
             </div>
-            <div className="mt-4 text-white/75 text-sm leading-relaxed space-y-2">
+            <div className="mt-4 text-white/75 text-base leading-relaxed space-y-2">
               <div>• Vị trí: Lộc An, Bảo Lâm, Lâm Đồng</div>
               <div>• Tên dự án: Star Hills Lộc An</div>
               <div>• Diện tích đa dạng: 5×20, 6×20, 6×21…</div>
@@ -279,13 +270,13 @@ export default function Page() {
             </div>
           </div>
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-7 lg:col-span-2">
-            <div className="text-xs font-black uppercase tracking-widest text-white/70">
+            <div className="text-sm font-black uppercase tracking-widest text-white/70">
               TÂM ĐIỂM ĐẦU TƯ
             </div>
-            <div className="mt-2 text-2xl md:text-3xl font-black uppercase leading-tight">
+            <div className="mt-2 text-3xl md:text-4xl font-black uppercase leading-tight">
               SINH LỜI <span style={{ color: gold }}>VƯỢT BẬC</span>
             </div>
-            <p className="mt-4 text-white/75 text-sm leading-relaxed">
+            <p className="mt-4 text-white/75 text-base leading-relaxed">
               Star Hills Lộc An nằm tại vị trí đắc địa, gần như tiếp giáp TP. Bảo Lộc – một trong
               các địa phương phát triển hàng đầu tại tỉnh Lâm Đồng.
             </p>
@@ -299,13 +290,32 @@ export default function Page() {
           </div>
         </div>
       </section>
+      {/* ===== VỊ TRÍ ===== */}
+      <section id="vitri" className="max-w-7xl mx-auto px-4 md:px-6 pb-16 md:pb-20">
+        <div className="text-center">
+          <h3 className="text-4xl font-black uppercase tracking-[8px]" style={{ color: gold }}>
+            VỊ TRÍ DỰ ÁN
+          </h3>
+          <p className="mt-3 text-white/70 text-base">
+            Star Hills Lộc An nằm tại vị trí đắc địa, gần như tiếp giáp TP. Bảo Lộc – một trong
+            các địa phương phát triển hàng đầu tại tỉnh Lâm Đồng.
+          </p>
+        </div>
+        <div className="mt-10 rounded-[32px] overflow-hidden border border-white/10 shadow-2xl">
+          <img 
+            src="https://images.unsplash.com/photo-1578852549159-4d4e7c2e3e4c?q=80&w=1800&auto=format&fit=crop" 
+            alt="Map of Star Hills Lộc An" 
+            className="w-full h-auto object-cover" 
+          />
+        </div>
+      </section>
       {/* ===== TIỆN ÍCH ===== */}
       <section id="tienich" className="max-w-7xl mx-auto px-4 md:px-6 pb-16 md:pb-20">
         <div className="text-center">
-          <h3 className="text-3xl font-black uppercase tracking-[8px]" style={{ color: gold }}>
+          <h3 className="text-4xl font-black uppercase tracking-[8px]" style={{ color: gold }}>
             TIỆN ÍCH NGOẠI KHU
           </h3>
-          <p className="mt-3 text-white/70 italic text-sm">
+          <p className="mt-3 text-white/70 text-base">
             Bố cục rõ ràng, ngắn gọn và hấp dẫn.
           </p>
         </div>
@@ -319,8 +329,8 @@ export default function Page() {
               key={idx}
               className="rounded-[28px] border border-white/10 bg-white/5 p-7 hover:bg-white/[0.07] transition"
             >
-              <div className="text-lg font-black uppercase">{it.title}</div>
-              <div className="mt-2 text-white/70 text-sm leading-relaxed">{it.desc}</div>
+              <div className="text-xl font-black uppercase">{it.title}</div>
+              <div className="mt-2 text-white/70 text-base leading-relaxed">{it.desc}</div>
             </div>
           ))}
         </div>
@@ -328,12 +338,12 @@ export default function Page() {
       {/* ===== PHÁP LÝ ===== */}
       <section id="phaply" className="max-w-7xl mx-auto px-4 md:px-6 pb-16 md:pb-20">
         <div className="text-center">
-          <h3 className="text-3xl font-black uppercase tracking-[8px]" style={{ color: gold }}>
+          <h3 className="text-4xl font-black uppercase tracking-[8px]" style={{ color: gold }}>
             PHÁP LÝ ĐẦY ĐỦ
           </h3>
         </div>
         <div className="mt-10 rounded-[32px] border border-white/10 bg-white/5 p-8 md:p-10">
-          <div className="text-white/75 text-sm leading-relaxed space-y-2 italic">
+          <div className="text-white/75 text-base leading-relaxed space-y-2 italic">
             <div>• Sổ hồng riêng</div>
             <div>• Công chứng sang tên ngay</div>
             <div>• Hỗ trợ ngân hàng</div>
@@ -350,7 +360,7 @@ export default function Page() {
       {/* ===== ĐĂNG KÝ + LIÊN HỆ ===== */}
       <section id="dangky" className="max-w-7xl mx-auto px-4 md:px-6 pb-16 md:pb-20">
         <div className="rounded-[36px] border border-white/10 bg-[#031d18]/50 p-8 md:p-12">
-          <h3 className="text-3xl md:text-4xl font-black uppercase text-center leading-tight">
+          <h3 className="text-4xl md:text-5xl font-black uppercase text-center leading-tight">
             Đăng ký <span style={{ color: gold }}>nhận thông tin</span>
           </h3>
           <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
